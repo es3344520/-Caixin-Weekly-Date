@@ -1,17 +1,16 @@
-// download.js
-import path from 'path';
-import { readFile } from 'fs/promises';
+// download.js 使用 CommonJS 语法
+const path = require('path');
+const { readFile } = require('fs').promises;
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   try {
-    // 获取当前工作目录路径，并指定profile.json的位置
-    const filePath = path.join(process.cwd(), 'profile.json');
+    const filePath = path.join(process.cwd(), 'profile.json'); // 直接指向根目录
     
     // 设置响应头以提示浏览器下载文件而不是显示它
     res.setHeader('Content-Disposition', 'attachment; filename=profile.json');
     res.setHeader('Content-Type', 'application/json');
 
-    // 同步读取文件并发送给客户端
+    // 读取文件内容并发送给客户端
     const fileData = await readFile(filePath);
     res.end(fileData);
   } catch (error) {
