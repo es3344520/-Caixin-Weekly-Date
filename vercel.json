@@ -9,7 +9,7 @@
   "routes": [
     {
       "src": "/download",
-      "dest": "/server.js" // 明确指定server.js来处理/download请求
+      "dest": "/" // 将请求发送到根目录，让Express处理
     }
   ]
 }
