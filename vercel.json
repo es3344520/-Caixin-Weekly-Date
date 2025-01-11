@@ -9,7 +9,7 @@
   "routes": [
     {
       "src": "/download",
-      "dest": "/download"
+      "dest": "/server.js" // 明确指定server.js来处理/download请求
     }
   ]
 }
