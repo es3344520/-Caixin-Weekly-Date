@@ -1,9 +1,12 @@
 {
-  "name": "download-profile-json",
+  "name": "download-profile",
   "version": "1.0.0",
-  "type": "module", // 确保这一行存在并且正确
+  "description": "A simple server to download profile.json",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
