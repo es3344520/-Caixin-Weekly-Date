@@ -1,9 +1,15 @@
 {
   "version": 2,
+  "builds": [
+    {
+      "src": "download.js",
+      "use": "@vercel/node"
+    }
+  ],
   "routes": [
     {
       "src": "/download",
-      "dest": "/api/download"
+      "dest": "/download.js"
     }
   ]
 }
