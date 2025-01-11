@@ -2,24 +2,8 @@
   "version": 2,
   "routes": [
     {
-      "src": "/profile\\.json",
-      "dest": "/api/download-profile",
-      "methods": ["GET"]
-    }
-  ],
-  "headers": [
-    {
-      "source": "/profile\\.json",
-      "headers": [
-        {
-          "key": "Content-Disposition",
-          "value": "attachment; filename=profile.json"
-        },
-        {
-          "key": "Content-Type",
-          "value": "application/json"
-        }
-      ]
+      "src": "/download",
+      "dest": "/api/download"
     }
   ]
 }
