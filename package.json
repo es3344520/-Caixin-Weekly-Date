@@ -1,0 +1,9 @@
+{
+  "name": "download-profile-json",
+  "version": "1.0.0",
+  "type": "module", // 如果你使用ESM语法，请保留这一行
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {}
+}
