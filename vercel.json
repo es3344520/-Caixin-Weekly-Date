@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/profile\\.json",
+      "dest": "/api/download-profile",
+      "methods": ["GET"]
+    }
+  ]
+}
