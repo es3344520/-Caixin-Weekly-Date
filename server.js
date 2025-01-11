@@ -1,15 +1,13 @@
-const express = require('express');
+const fs = require('fs');
 const path = require('path');
-const app = express();
-const port = process.env.PORT || 3000;
 
-app.get('/download', (req, res) => {
-  const file = path.join(__dirname, 'profile.json');
-  res.download(file, 'profile.json', (err) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-  });
-});
+module.exports = (req, res) => {
+  const filePath = path.join(__dirname, 'profile.json');
+  
+  // 设置响应头，使文件被当作附件下载
+  res.setHeader('Content-Disposition', 'attachment; filename=profile.json');
+  res.setHeader('Content-Type', 'application/json');
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+  // 发送文件内容给客户端
+  fs.createReadStream(filePath).pipe(res);
+};
