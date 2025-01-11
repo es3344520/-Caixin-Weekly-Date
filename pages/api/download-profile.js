@@ -1,36 +1,22 @@
-// pages/api/download-profile.js
 import path from 'path';
-import fs from 'fs/promises'; // 使用异步文件系统方法
-import { createReadStream } from 'fs';
+import fs from 'fs';
 
-export default async function handler(req, res) {
-  try {
-    // 构建文件路径
-    const filePath = path.join(process.cwd(), 'profile.json');
+export default function handler(req, res) {
+  // 确保路径正确指向你的 profile.json 文件位置
+  const filePath = path.join(process.cwd(), 'profile.json');
 
-    // 检查文件是否存在
-    await fs.access(filePath);
+  // 设置响应头以触发下载行为
+  res.setHeader('Content-Disposition', 'attachment; filename=profile.json');
+  res.setHeader('Content-Type', 'application/json');
 
-    // 设置响应头以触发下载
-    res.setHeader('Content-Disposition', 'attachment; filename=profile.json');
-    res.setHeader('Content-Type', 'application/json');
+  // 读取文件并发送给客户端
+  const fileStream = fs.createReadStream(filePath);
+  fileStream.pipe(res);
 
-    // 创建读取流并将内容发送给客户端
-    const fileStream = createReadStream(filePath);
-    fileStream.pipe(res);
-
-  } catch (err) {
-    if (err.code === 'ENOENT') {
-      return res.status(404).json({ message: 'File not found' });
-    }
+  // 处理可能的错误，例如文件未找到
+  fileStream.on('error', (err) => {
     console.error(err);
-    return res.status(500).json({ message: 'Server error' });
-  }
+    res.statusCode = 500;
+    res.end('Internal Server Error');
+  });
 }
-
-// 确保函数不会被缓存
-export const config = {
-  api: {
-    responseLimit: false, // 允许大文件传输
-  },
-};
